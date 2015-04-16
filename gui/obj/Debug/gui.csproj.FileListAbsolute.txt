@@ -1,0 +1,10 @@
+E:\code\cli_test\gui\bin\Debug\gui.exe.config
+E:\code\cli_test\gui\bin\Debug\gui.exe
+E:\code\cli_test\gui\bin\Debug\gui.pdb
+E:\code\cli_test\gui\bin\Debug\unmanagedDLL.dll
+E:\code\cli_test\gui\bin\Debug\unmanagedDLL.pdb
+E:\code\cli_test\gui\obj\Debug\gui.csprojResolveAssemblyReference.cache
+E:\code\cli_test\gui\obj\Debug\gui.Properties.Resources.resources
+E:\code\cli_test\gui\obj\Debug\gui.csproj.GenerateResource.Cache
+E:\code\cli_test\gui\obj\Debug\gui.exe
+E:\code\cli_test\gui\obj\Debug\gui.pdb
