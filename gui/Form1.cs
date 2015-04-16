@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace gui
 {
@@ -37,6 +38,7 @@ namespace gui
         }
         
         UnmanagedWrapper m_wrapper = new UnmanagedWrapper();
+        IntPtr iPtr;
 
         public Form1()
         {
@@ -45,13 +47,30 @@ namespace gui
             int val = m_wrapper.callTest();
             val = m_wrapper.callTest(11234);
 
-            IntPtr iPtr = new IntPtr(m_wrapper.SDL_GetWindowID());
+            
+
+            iPtr = new IntPtr(m_wrapper.SDL_GetWindowID(this.Width, this.Height));
 
             this.Text = "Hello " + iPtr;
 
             SetWindowPos(iPtr, this.Handle, 0, 0, 0, 0, (SetWindowPosFlags.SWP_SHOWWINDOW | SetWindowPosFlags.SWP_NOSIZE));
             SetParent(iPtr, this.Handle);
             ShowWindow(iPtr, ShowWindowCommand.SW_SHOWNORMAL);
+
+            
+
+        }
+
+        private void Form1_ResizeEnd(object sender, EventArgs e)
+        {
+            Debug.WriteLine("resize " + this.Width  + " " +  this.Height);
+            SetWindowPos(iPtr, this.Handle, 0, 0, this.Width, this.Height, (SetWindowPosFlags.SWP_SHOWWINDOW));//this.Width, this.Height, 0);
+            m_wrapper.resize(this.Width, this.Height);
+            
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }

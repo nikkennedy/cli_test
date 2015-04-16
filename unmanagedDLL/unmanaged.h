@@ -18,7 +18,8 @@ public:
 	int callTest();
 	int callTest(int num);
 
-	int SDL_GetWindowID();
+	int SDL_GetWindowID(int width, int height);
+	int resize(int w, int h);
 
 	int startRenderThread();
 

@@ -8,3 +8,4 @@ E:\code\cli_test\gui\obj\Debug\gui.Properties.Resources.resources
 E:\code\cli_test\gui\obj\Debug\gui.csproj.GenerateResource.Cache
 E:\code\cli_test\gui\obj\Debug\gui.exe
 E:\code\cli_test\gui\obj\Debug\gui.pdb
+E:\code\cli_test\gui\obj\Debug\gui.Form1.resources

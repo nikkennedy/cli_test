@@ -8,6 +8,7 @@
 
 SDL_GLContext m_GLContext;
 SDL_Window* m_windowID;
+int g_w, g_h;
 
 Unmanaged::Unmanaged()
 {
@@ -40,6 +41,8 @@ int _main_thread(void* data)
 	float r = 1.0;
 	while (1)
 	{
+		glViewport((GLint)0, (GLint)0, (GLsizei)(g_w), (GLsizei)(g_h));
+
 		glClearColor(r, r, 1.0, 1.0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -59,13 +62,28 @@ int Unmanaged::startRenderThread()
 	return 1;
 }
 
-int Unmanaged::SDL_GetWindowID()
+int Unmanaged::resize(int w, int h)
+{
+	g_w = w;
+	g_h = h;
+
+	printf("Resizing...\n");
+
+	SDL_SetWindowSize(m_windowID, w, h);
+	
+	return 1;
+}
+
+int Unmanaged::SDL_GetWindowID(int width, int height)
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0)
 	{
 		printf("error");
 		return 0;
 	}
+
+	m_width = width;
+	m_height = height;
 
 	m_windowID = SDL_CreateWindow("SDL Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height, SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS);
 

@@ -14,4 +14,5 @@ Class UnmanagedWrapper: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   Methods:
     callTest(Int32): PrivateScope, Public, HideBySig
     callTest(): PrivateScope, Public, HideBySig
-    SDL_GetWindowID(): PrivateScope, Public, HideBySig
+    resize(Int32, Int32): PrivateScope, Public, HideBySig
+    SDL_GetWindowID(Int32, Int32): PrivateScope, Public, HideBySig
