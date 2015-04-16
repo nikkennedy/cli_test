@@ -1,2 +1,3 @@
-# cli_test
-C++ and C# CLI testing
+# C++ and C# with SDL testing
+
+C++, SDL and C# CLI testing
