@@ -3,6 +3,11 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_syswm.h>
+#include <gl\GL.h>
+
+
+SDL_GLContext m_GLContext;
+SDL_Window* m_windowID;
 
 Unmanaged::Unmanaged()
 {
@@ -26,6 +31,34 @@ int Unmanaged::callTest(int num)
 	return num;
 }
 
+int _main_thread(void* data)
+{
+	m_GLContext = SDL_GL_CreateContext(m_windowID);
+
+	if (m_GLContext == NULL)
+		return 0;
+	float r = 1.0;
+	while (1)
+	{
+		glClearColor(r, r, 1.0, 1.0);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		SDL_GL_SwapWindow(m_windowID);
+		r -= 0.01;
+		if (r <= 0) r = 1.0;
+		SDL_Delay(100);
+	}
+
+	return 1;
+}
+
+int Unmanaged::startRenderThread()
+{
+	SDL_Thread* mainThread = SDL_CreateThread(_main_thread, "MainThread", NULL);
+
+	return 1;
+}
+
 int Unmanaged::SDL_GetWindowID()
 {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0)
@@ -34,16 +67,18 @@ int Unmanaged::SDL_GetWindowID()
 		return 0;
 	}
 
-	SDL_Window* windowID = SDL_CreateWindow("SDL Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height, SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS);
+	m_windowID = SDL_CreateWindow("SDL Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height, SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS);
+
+	startRenderThread();
 
 	SDL_SysWMinfo info;
 
 	SDL_VERSION(&info.version);
-	SDL_GetWindowWMInfo(windowID, &info);
+	SDL_GetWindowWMInfo(m_windowID, &info);
 
 	int _hwnd = (int) info.info.win.window;
 
-	if (windowID == NULL)
+	if (m_windowID == NULL)
 		return 0;
 
 	return _hwnd;
