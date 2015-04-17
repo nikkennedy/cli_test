@@ -69,7 +69,7 @@ int Unmanaged::resize(int w, int h)
 
 	printf("Resizing...\n");
 
-	SDL_SetWindowSize(m_windowID, w, h);
+//	SDL_SetWindowSize(m_windowID, w, h);
 	
 	return 1;
 }

@@ -47,31 +47,24 @@ namespace gui
             int val = m_wrapper.callTest();
             val = m_wrapper.callTest(11234);
 
-            
-
             iPtr = new IntPtr(m_wrapper.SDL_GetWindowID(this.Width, this.Height));
 
             this.Text = "Hello " + iPtr;
 
-            SetWindowPos(iPtr, this.Handle, 0, 0, 0, 0, (SetWindowPosFlags.SWP_SHOWWINDOW | SetWindowPosFlags.SWP_NOSIZE));
-            SetParent(iPtr, this.Handle);
-            ShowWindow(iPtr, ShowWindowCommand.SW_SHOWNORMAL);
-
-            
+            SetParent(iPtr, panel1.Handle);
+            SetWindowPos(iPtr, IntPtr.Zero, 0, 0, 0, 0, (SetWindowPosFlags.SWP_SHOWWINDOW | SetWindowPosFlags.SWP_NOSIZE));
+            //ShowWindow(iPtr, ShowWindowCommand.SW_SHOWNORMAL);
 
         }
 
-        private void Form1_ResizeEnd(object sender, EventArgs e)
+
+        private void panel1_Resize(object sender, EventArgs e)
         {
-            Debug.WriteLine("resize " + this.Width  + " " +  this.Height);
-            SetWindowPos(iPtr, this.Handle, 0, 0, this.Width, this.Height, (SetWindowPosFlags.SWP_SHOWWINDOW));//this.Width, this.Height, 0);
+            SetWindowPos(iPtr, IntPtr.Zero, 0, 0, this.Width, this.Height, (SetWindowPosFlags.SWP_SHOWWINDOW));//this.Width, this.Height, 0);
             m_wrapper.resize(this.Width, this.Height);
-            
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
+
     }
 }
