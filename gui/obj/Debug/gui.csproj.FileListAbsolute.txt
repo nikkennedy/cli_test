@@ -9,3 +9,5 @@ E:\code\cli_test\gui\obj\Debug\gui.csproj.GenerateResource.Cache
 E:\code\cli_test\gui\obj\Debug\gui.exe
 E:\code\cli_test\gui\obj\Debug\gui.pdb
 E:\code\cli_test\gui\obj\Debug\gui.Form1.resources
+E:\code\cli_test\gui\bin\Debug\WeifenLuo.WinFormsUI.Docking.dll
+E:\code\cli_test\gui\obj\Debug\gui.Form2.resources

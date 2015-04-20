@@ -69,7 +69,7 @@ int Unmanaged::resize(int w, int h)
 
 	printf("Resizing...\n");
 
-//	SDL_SetWindowSize(m_windowID, w, h);
+	SDL_SetWindowSize(m_windowID, w, h);
 	
 	return 1;
 }
@@ -82,8 +82,24 @@ int Unmanaged::SDL_GetWindowID(int width, int height)
 		return 0;
 	}
 
-	m_width = width;
-	m_height = height;
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+
+	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 5); // was 8, 8, 8, 8
+	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 5);
+	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 5);
+	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 1);
+
+	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+
+	SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
+
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24); // need good resolution depth buffer
+
+	m_width = 500;// width;
+	m_height = 500;// height;
 
 	m_windowID = SDL_CreateWindow("SDL Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height, SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS);
 
