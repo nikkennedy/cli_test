@@ -54,7 +54,7 @@ namespace gui
 
             this.Text = "Hello " + iPtr;
 
-            SetWindowPos(iPtr, panel1.Handle, 0, 0, 0, 0, (SetWindowPosFlags.SWP_SHOWWINDOW | SetWindowPosFlags.SWP_NOSIZE));
+            SetWindowPos(iPtr, IntPtr.Zero, 0, 0, 0, 0, (SetWindowPosFlags.SWP_SHOWWINDOW | SetWindowPosFlags.SWP_NOSIZE));
             SetParent(iPtr, panel1.Handle);
             //ShowWindow(iPtr, ShowWindowCommand.SW_SHOWNORMAL);
         }
@@ -70,7 +70,7 @@ namespace gui
             panel1.Size = this.Size;
             panel1.Location = new Point(0, 0);
             m_wrapper.resize(this.Size.Width, this.Size.Height);
-            //SetWindowPos(iPtr, panel1.Handle, 0, 0, this.Size.Width, this.Size.Height, (SetWindowPosFlags.SWP_SHOWWINDOW ));
+            SetWindowPos(iPtr, IntPtr.Zero, 0, 0, this.Size.Width, this.Size.Height, (SetWindowPosFlags.SWP_SHOWWINDOW ));
 
 
         }

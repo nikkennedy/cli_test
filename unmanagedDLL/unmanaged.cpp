@@ -34,6 +34,8 @@ int Unmanaged::callTest(int num)
 
 int _main_thread(void* data)
 {
+	SDL_Event e;
+
 	m_GLContext = SDL_GL_CreateContext(m_windowID);
 
 	if (m_GLContext == NULL)
@@ -45,6 +47,19 @@ int _main_thread(void* data)
 
 		glClearColor(r, r, 1.0, 1.0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		while (SDL_PollEvent(&e) != 0)
+		{
+			switch (e.type) {
+			case SDL_KEYDOWN:
+				printf("Key Down\n");
+				break;
+			default:
+				break;
+				//printf("Unknown event.\n");
+			}
+		}
+
 
 		SDL_GL_SwapWindow(m_windowID);
 		r -= 0.01;
