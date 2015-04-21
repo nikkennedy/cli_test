@@ -7,7 +7,7 @@
 
 
 SDL_GLContext m_GLContext;
-SDL_Window* m_windowID;
+SDL_Window* m_windowID = NULL;
 int g_w, g_h;
 
 Unmanaged::Unmanaged()
@@ -35,6 +35,9 @@ int Unmanaged::callTest(int num)
 int _main_thread(void* data)
 {
 	SDL_Event e;
+
+	// if below is uncommented, window can not be resized, must be created in same thread as window manager
+//	m_windowID = SDL_CreateWindow("SDL Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 500, 500, SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS);
 
 	m_GLContext = SDL_GL_CreateContext(m_windowID);
 
@@ -97,6 +100,8 @@ int Unmanaged::SDL_GetWindowID(int width, int height)
 		return 0;
 	}
 
+	SDL_EventState(SDL_WINDOWEVENT, SDL_IGNORE);
+
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
 
@@ -116,9 +121,12 @@ int Unmanaged::SDL_GetWindowID(int width, int height)
 	m_width = 500;// width;
 	m_height = 500;// height;
 
-	m_windowID = SDL_CreateWindow("SDL Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height, SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS);
+	// if this window is created in same thread as the context, then main window can not be resized!
+	m_windowID = SDL_CreateWindow("SDL Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 500, 500, SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS);
 
 	startRenderThread();
+
+	while (m_windowID == NULL) {};
 
 	SDL_SysWMinfo info;
 

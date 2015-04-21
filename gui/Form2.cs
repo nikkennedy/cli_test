@@ -15,7 +15,7 @@ namespace gui
 {
     public partial class Form2 : DockContent
     {
-        UnmanagedWrapper m_wrapper = new UnmanagedWrapper();
+        UnmanagedWrapper m_wrapper;
 
         [DllImport("user32.dll", SetLastError = true)]
         static extern bool SetWindowPos(IntPtr handle, IntPtr handleAfter, int x, int y, int cx, int cy, SetWindowPosFlags flags);
@@ -45,7 +45,7 @@ namespace gui
         public Form2()
         {
             InitializeComponent();
-
+            m_wrapper = new UnmanagedWrapper();
 
             int val = m_wrapper.callTest();
             val = m_wrapper.callTest(11234);
